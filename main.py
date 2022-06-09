@@ -167,17 +167,71 @@ def train_data():
     close_btn.pack()
 def make_prediction():
     w_prediction = Toplevel(root)
-    w_prediction.geometry("450x100")
+    w_prediction.geometry("450x500")
     w_prediction.title("Dataset train")
     w_prediction.resizable(False, False)
+
+    lbl001 = tk.Label(w_prediction, text="Pregnancies")
+    lbl001.pack()
+    entry001 = tk.Entry(w_prediction, width=10)
+    entry001.pack()
+
+    lbl002 = tk.Label(w_prediction, text="Glucose")
+    lbl002.pack()
+    entry002 = tk.Entry(w_prediction, width=10)
+    entry002.pack()
+
+    lbl003 = tk.Label(w_prediction, text="BloodPressure")
+    lbl003.pack()
+    entry003 = tk.Entry(w_prediction, width=10)
+    entry003.pack()
+
+    lbl004 = tk.Label(w_prediction, text="SkinThickness")
+    lbl004.pack()
+    entry004 = tk.Entry(w_prediction, width=10)
+    entry004.pack()
+
+    lbl005 = tk.Label(w_prediction, text="Insulin")
+    lbl005.pack()
+    entry005 = tk.Entry(w_prediction, width=10)
+    entry005.pack()
+
+    lbl006 = tk.Label(w_prediction, text="BMI")
+    lbl006.pack()
+    entry006 = tk.Entry(w_prediction, width=10)
+    entry006.pack()
+
+    lbl007 = tk.Label(w_prediction, text="PedigreeFunction")
+    lbl007.pack()
+    entry007 = tk.Entry(w_prediction, width=10)
+    entry007.pack()
+
+    lbl008 = tk.Label(w_prediction, text="Age")
+    lbl008.pack()
+    entry008 = tk.Entry(w_prediction, width=10)
+    entry008.pack()
+
+    lbl009 = tk.Label(w_prediction, text="Tiene diabetes?")
+    lbl009.pack()
+
+    lbl010 = tk.Label(w_prediction, text="....")
+    lbl010.pack()
+    def predict_diabetes():
+        input_data = (float(entry001.get()), float(entry002.get()), float(entry003.get()),
+        float(entry004.get()), float(entry005.get()), float(entry006.get()),
+        float(entry007.get()), float(entry008.get()))
+        print(input_data)
+        input_data_as_numpy_array = np.asarray(input_data)
+        input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
+        std_data = scaler.transform(input_data_reshaped)
+        prediction = classifier.predict(std_data)
+        if (prediction[0] == 0):
+            lbl010["text"] = "No"
+        else:
+            lbl010["text"] = "Si"
+    calculate_btn = Button(w_prediction, text="Prediction", command=lambda: predict_diabetes())
+    calculate_btn.pack()
     # input_data = (5,166,72,19,175,25.8,0.587,51)
-    # input_data_as_numpy_array = np.asarray(input_data)
-    # input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
-    # std_data = scaler.transform(input_data_reshaped)
-    # prediction = classifier.predict(std_data)
-    # if (prediction[0] == 0):
-    #     print('The person is not diabetic')
-    # else:
-    #     print('The person is diabetic')
+   
 
 root.mainloop()
